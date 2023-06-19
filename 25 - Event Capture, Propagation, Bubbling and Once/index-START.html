@@ -43,6 +43,36 @@
 
 <button></button>
 <script>
+  const divs = document.querySelectorAll('div');
+
+  function logText(e) {
+    console.log(this.classList.value);
+    e.stopPropagation(); 
+    // will stop the click event from bubbling up/down after handler is called once 
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: true,
+    once: true // will unbind the event listener from the target element after action handler is called once 
+  })); 
+  /* 
+  we will see three, two, one all recorded when we click on the div.three
+  this is because of bubbling 
+
+  what is bubbling?  
+  It happens when an element receives an event, and that event bubbles up (or you can say is transmitted or propagated) 
+  to its parent and ancestor elements in the DOM tree until it gets to the root element
+  
+  In fact, even body is considered clicked on but it is not registered because we didn't add an event listener to it 
+  */
+
+  /* When a click happens, browser will "capture" events that happened in a top down manner from the root, before bubbling up and calling the 
+  action handler for every click captured.
+
+  addEventListener has a capture parameter, which defines how the order of how the action handler is called.
+  When it is true, it will call the handler in the order it captures the events instead. 
+  
+  TLDR; capture property controls order of bubbling*/
 
 </script>
 </body>
