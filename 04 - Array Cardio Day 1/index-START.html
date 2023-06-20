@@ -38,28 +38,75 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const fifteen = inventors.filter(inventor => {
+      return inventor.year >= 1500 && inventor.year < 1600
+    })
+    // console.log(fifteen);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const names = inventors.map(inventor => inventor.first + " " + inventor.last);
+
+    // console.table(names);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    const sortedInventors = inventors.sort((a, b) => (a.year > b.year) ? 1 : -1);
+    
+    // console.table(sortedInventors);
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const yearsLived = inventors.reduce((sum, inventor) => sum + (inventor.passed - inventor.year), 0);
+
+    // console.log(yearsLived);
 
     // 5. Sort the inventors by years lived
+
+    const inventorsByYearsLived = inventors.sort((a, b) => 
+      (a.passed - a.year) > (b.passed - b.year) ? 1 : -1
+      // this is from shortest to longest
+    );
+
+    // console.table(inventorsByYearsLived);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // const list = document.querySelectorAll(".mw-category-group a");
+    // const names_with_de = Array.from(list).map(a => a.textContent).filter(name => name.includes("de"));
+
+    // use in console of the wiki page
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const sorted = people.sort((a, b) => {
+      const firstSurname = (a.split(", "))[0];
+      const lastSurname = (b.split(", "))[0];
+
+      // can use destructuring like this
+      // const [aLast, aFirst] = a.split(", ");
+      // const [bLast, bFirst] = b.split(", ");
+
+      return firstSurname > lastSurname ? 1 : -1;
+    });
+    // console.table(sorted);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const sumOfData = data.reduce((sum, curElem) => {
+      sum[curElem] += 1;
+      return sum;
+    }, {car: 0, truck: 0, bike: 0, van: 0, walk: 0})
+
+
+    // instead of hard-coding the initialValue, we can check within callback function whether the property exists or not using 
+    // data[curElem], and if it doesn't we add the property
+    // then we can start of with empty object
+    console.table(sumOfData);
 
   </script>
 </body>
